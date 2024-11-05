@@ -27,7 +27,7 @@ CREATE TABLE reservas(
     id_hospede INT NOT NULL,
     id_quarto INT NOT NULL,
     data_inicio DATE NOT NULL,
-    data_fim DATE NOT NULL,
+    data_fim DATE,
     FOREIGN KEY (id_hospede) REFERENCES hospedes(id_hospede),
     FOREIGN KEY (id_quarto) REFERENCES quartos(id_quarto)
 );
@@ -53,7 +53,8 @@ VALUES
 
 SELECT * FROM quartos;
 
-INSERT INTO reservas (id_hospede, id_quarto, data_inicio, data_fim);
+INSERT INTO reservas (id_hospede, id_quarto, data_inicio, data_fim)
+VALUES
 (1, 1, '2024-11-01', '2024-11-05'),
 (2, 2, '2024-10-30', '2024-11-03'),
 (3, 3, '2024-11-01', '2024-11-05'),
@@ -61,5 +62,53 @@ INSERT INTO reservas (id_hospede, id_quarto, data_inicio, data_fim);
 
 SELECT * FROM reservas;
 
+/* hospedes que já finalizaram suas estadias */
+
+SELECT 
+h.nome,
+q.numero AS numero_quarto,
+r.data_inicio, 
+r.data_fim
+
+FROM hospedes h
+
+JOIN
+reservas r ON h.id_hospede = r.id_hospede
+
+JOIN
+quartos q ON r.id_quarto = q.id_quarto
+
+WHERE r.data_fim IS NOT NULL;
+
+
+/* lista todos os hospedes*/
+
+SELECT 
+h.nome,
+q.numero AS numero_quarto,
+r.data_inicio,
+r.data_fim
+
+FROM hospedes h
+
+JOIN
+reservas r ON h.id_hospede = r.id_hospede
+
+JOIN 
+quartos q ON r.id_quarto = q.id_quarto;
+
+/*lista todos os quartos que ainda nao forma reservados*/
+
+SELECT 
+q.numero,
+q.capacidade,
+q.preco_diaria
+
+FROM quartos q
+
+LEFT JOIN 
+reservas r ON q.id_quarto = r.id_quarto
+
+WHERE q.disponivel IS FALSE;
 
 
