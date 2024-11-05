@@ -35,3 +35,9 @@ CREATE TABLE reservas(
 
 SELECT * FROM reservas;
 
+INSERT INTO hospedes (nome, email, telefone, endereco, documento)
+VALUES 
+('Luiza Schettini', 'luiza@gmail,com', '(11) 99999-9999', 'Rua do Beija Flor, 123', '42131313133'),
+('Gabriel Perin', 'biel@gmail.com', '(11)99777-7777', 'Rua dos Sabiás, 20', '43423434343'),
+('Julia Emmerich', 'julia@gmail.com', '(11)99888-8888', 'Rua do Beija Flor, 123', '42101010101'),
+('Lucas Perin', 'lucas@gmail.com', '(11)99666-6666', 'Rua dos Sabiás, 20', '43252525255');
